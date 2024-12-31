@@ -615,3 +615,431 @@ cpp_indent_preserve_comments = false
 ```
 
 そもそもコメントの先頭を意図的にずらしたいケースが思いつかない
+
+## cpp_new_line_before_open_brace_namespace
+
+名前空間の開き括弧の位置を指定する
+
+設定できる値
+
+- new_line
+  - 新しい行に移動する
+- same_line
+  - 同じ行でスペースを入れる
+- ignore
+  - 再配置しない
+
+```cpp
+// cpp_new_line_before_open_brace_namespace = new_line
+namespace X
+{
+	namespace Y
+	{
+	}
+}
+
+// cpp_new_line_before_open_brace_namespace = same_line
+namespace X {
+	namespace Y {
+	}
+}
+
+// cpp_new_line_before_open_brace_namespace = ignore
+// 2パターンが混在してもOK
+namespace X {
+	namespace Y
+	{
+	}
+}
+```
+
+### 個人的な好み
+
+```
+cpp_new_line_before_open_brace_namespace = new_line
+```
+
+開き括弧と閉じ括弧は縦にそろって欲しい派なので
+
+## cpp_new_line_before_open_brace_type
+
+型宣言の開き括弧の位置を指定する
+
+設定できる値
+
+- new_line
+  - 新しい行に移動する
+- same_line
+  - 同じ行でスペースを入れる
+- ignore
+  - 再配置しない
+
+```cpp
+// cpp_new_line_before_open_brace_type = new_line
+class X
+{};
+
+class Y
+{};
+
+// cpp_new_line_before_open_brace_type = same_line
+class X {
+};
+
+class Y {
+};
+
+// cpp_new_line_before_open_brace_type = ignore
+// 両タイプが混在してもOK
+class X
+{};
+
+class Y {
+};
+```
+
+### 個人的な好み
+
+```
+cpp_new_line_before_open_brace_type = new_line
+```
+
+開き括弧と閉じ括弧は縦にそろって欲しい派なので
+
+## cpp_new_line_before_open_brace_function
+
+関数定義の開き括弧の位置を指定する
+
+設定できる値
+
+- new_line
+  - 新しい行に移動する
+- same_line
+  - 同じ行でスペースを入れる
+- ignore
+  - 再配置しない
+
+
+```cpp
+// cpp_new_line_before_open_brace_function = new_line
+void f()
+{
+}
+
+void g()
+{
+}
+
+// cpp_new_line_before_open_brace_function = same_line
+void f() {
+}
+
+void g() {
+}
+
+// cpp_new_line_before_open_brace_function = ignore
+// 両方のパターンが混ざっていてもOK
+void f()
+{
+}
+
+void g() {
+}
+```
+
+### 個人的な好み
+
+```
+cpp_new_line_before_open_brace_function = new_line
+```
+
+開き括弧と閉じ括弧は縦にそろって欲しい派なので
+
+## cpp_new_line_before_open_brace_block
+
+forやwhileなどフロー制御のブロックの開き括弧の位置を指定する  
+名前からは影響を受けそうだが，通常のブロックの開き括弧の位置は影響を受けない
+
+設定できる値
+
+- new_line
+  - 新しい行に移動する
+- same_line
+  - 同じ行でスペースを入れる
+- ignore
+  - 再配置しない
+
+```cpp
+// cpp_new_line_before_open_brace_block = new_line
+// 単なるブロックは影響を受けない
+{
+}
+
+while(true)
+{
+	if(false)
+	{
+	}
+}
+
+// cpp_new_line_before_open_brace_block = same_line
+// 単なるブロックは影響を受けない
+{
+}
+
+while(true) {
+	if(false) {
+	}
+}
+
+
+// cpp_new_line_before_open_brace_block = ignore
+// 単なるブロックは影響を受けない
+{
+}
+
+// 両方のパターンが混ざっていてもOK
+while(true)
+{
+	if(false) {
+	}
+}
+```
+
+### 個人的な好み
+
+```
+cpp_new_line_before_open_brace_block = new_line
+```
+
+開き括弧と閉じ括弧は縦にそろって欲しい派なので
+
+## cpp_new_line_before_open_brace_lambda
+
+lambdaの開き括弧の位置を指定する
+
+設定できる値
+
+- new_line
+  - 新しい行に移動する
+- same_line
+  - 同じ行でスペースを入れる
+- ignore
+  - 再配置しない
+
+
+```cpp
+// cpp_new_line_before_open_brace_lambda = new_line
+auto lambda0 = []()
+{
+};
+
+auto labmda1 = []()
+{
+};
+
+// cpp_new_line_before_open_brace_lambda = same_line
+auto lambda0 = []() {
+};
+
+auto labmda1 = []() {
+};
+
+
+// cpp_new_line_before_open_brace_lambda = ignore
+// 両方のパターンが混ざっていてもOK
+auto lambda0 = []()
+{
+};
+
+auto labmda1 = []() {
+};
+```
+
+### 個人的な好み
+
+```
+cpp_new_line_before_open_brace_lambda = new_line
+```
+
+若干悩ましいが，ここまで来ると全部開き括弧は改行で揃えたい
+
+## cpp_new_line_scope_braces_on_separate_lines
+
+説明はスコープの中かっこを別の行に配置する，とあるが，
+スコープを定義するブロックの内容を別の行から開始するか，と解釈するのが良さそう
+
+trueなら別の行に，falseなら同じ行にする
+
+
+```cpp
+// cpp_new_line_scope_braces_on_separate_lines = true
+{
+	int i;
+}
+
+// cpp_new_line_scope_braces_on_separate_lines = false
+{ int i;
+}
+```
+
+### 個人的な好み
+
+```
+cpp_new_line_scope_braces_on_separate_lines = true
+```
+
+ブロックの開始に内容があると読みにくいです
+
+## cpp_new_line_close_brace_same_line_empty_type
+
+型宣言が空の場合に閉じ括弧を同じ行に書くならtrue，書かないならfalse
+
+```cpp
+// cpp_new_line_close_brace_same_line_empty_type = true
+class X
+{};
+
+// 実質空でもアクセス指定子やコメントがあれば別行になる
+class Y
+{
+public:
+};
+
+// cpp_new_line_close_brace_same_line_empty_type = false
+class X
+{
+};
+
+// 実質空でもアクセス指定子やコメントがあれば別行になる
+class Y
+{
+public:
+};
+```
+
+### 個人的な好み
+
+```cpp
+cpp_new_line_close_brace_same_line_empty_type = false
+```
+
+後から書き足すこともあるので，入力中にフォーマットが入ると邪魔になったから
+
+
+## cpp_new_line_close_brace_same_line_empty_function
+
+関数定義が空の場合に閉じ括弧を同じ行に書くならtrue，書かないならfalse
+
+```cpp
+// cpp_new_line_close_brace_same_line_empty_function = true
+void f()
+{}
+
+void g
+{
+	// コメントなどがあれば空扱いされない
+}
+
+// cpp_new_line_close_brace_same_line_empty_function = false
+void f()
+{
+}
+
+void g
+{
+	// コメントなどがあれば空扱いされない
+}
+```
+
+### 個人的な好み
+
+```
+cpp_new_line_close_brace_same_line_empty_function = false
+```
+
+後から書き足すこともあるので，入力中にフォーマットが入ると邪魔になったから
+
+## cpp_new_line_before_catch
+
+catchの前に改行を入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_new_line_before_catch = true
+try
+{
+}
+catch(...)
+{
+}
+
+// cpp_new_line_before_catch = false
+try
+{
+} catch(...)
+{
+}
+```
+
+### 個人的な好み
+
+```
+cpp_new_line_before_catch = true
+```
+
+cpp_new_line_before_brace_blockとの組み合わせになるが，開き括弧と閉じ括弧のようにtry/catchも縦に並べたい
+
+## cpp_new_line_before_else
+
+elseの前に改行を入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_new_line_before_else = true
+if(true)
+{
+}
+else
+{
+}
+
+// cpp_new_line_before_else = false
+if(true)
+{
+} else
+{
+}
+```
+
+### 個人的な好み
+
+```
+cpp_new_line_before_else = true
+```
+
+cpp_new_line_before_brace_blockとの組み合わせになるが，開き括弧と閉じ括弧のようにif/elseも縦に並べたい
+
+## cpp_new_line_before_while_in_do_while
+
+do whileのwhileの前に改行を入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_new_line_before_else = true
+do
+{
+}
+while(true);
+
+// cpp_new_line_before_else = false
+do
+{
+} while(true);
+
+```
+
+### 個人的な好み
+
+```
+cpp_new_line_before_else = true
+```
+
+元々はfalseが好みだけれど，ここまで設定していて一貫性を考えると改行した方が良いのではという気がしてきたので，しばらく改行で書いてみる
