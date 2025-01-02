@@ -178,7 +178,7 @@ Visual Studio 2022 17.12では扱える値も増えている模様．
 
 個人的にはXML形式は閉じタグが必要で面倒なので，Doxygen形式の方が好きです．
 
-## cpp_indent_bracesg
+## cpp_indent_braces
 
 中括弧({)を字下げする場合はtrue，しない場合はfalse
 
@@ -1043,3 +1043,758 @@ cpp_new_line_before_else = true
 ```
 
 元々はfalseが好みだけれど，ここまで設定していて一貫性を考えると改行した方が良いのではという気がしてきたので，しばらく改行で書いてみる
+
+## cpp_space_before_function_open_parenthesis
+
+関数名と仮引数の丸括弧の前の空白の扱いを指定
+
+設定できる値
+
+- insert
+  - スペースを1つ入れる
+- remove
+  - スペースを削除する
+- ignore
+  - 無視する
+
+```cpp
+// cpp_space_before_function_open_parenthesis = insert
+void f ()
+
+// cpp_space_before_function_open_parenthesis = remove
+void f()
+
+// cpp_space_before_function_open_parenthesis = ignore
+// 好きな数の空白を入れられる
+void f    ()
+```
+
+### 個人的な好み
+
+```
+cpp_space_before_function_open_parenthesis = remove
+```
+
+関数名から即丸括弧が並んでいる方が一体感があって，関数の一部と認識しやすい
+
+## cpp_space_within_parameter_list_parentheses
+
+引数リストの前後にスペースを入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_space_within_parameter_list_parentheses = true
+void f( int a, int b ){}
+void g()
+{
+    f( 2, 3 );
+}
+
+// cpp_space_within_parameter_list_parentheses = false
+void f(int a, int b){}
+void g()
+{
+    f(2, 3);
+}
+```
+
+### 個人的な好み
+
+```
+cpp_space_within_parameter_list_parentheses = false
+```
+
+調整中．もしかしたらtrueの方が良いかも? その場合はこの後のcpp_space_within_control_flow_statement_parenthesesもtrueにすること
+
+## cpp_space_between_empty_parameter_list_parentheses
+
+引数リストが空の場合にスペースを入れる
+
+```cpp
+// cpp_space_between_empty_parameter_list_parentheses = true
+void f( );
+// cpp_space_between_empty_parameter_list_parentheses = false
+void f();
+```
+
+### 個人的な好み
+
+```
+cpp_space_between_empty_parameter_list_parentheses = false
+```
+
+下手にスペースを入れると何かの書きかけかなと思ってしまうので
+
+## cpp_space_after_keywords_in_control_flow_statements
+
+if/while/forなどのフロー制御の後ろにスペースを入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_space_after_keywords_in_control_flow_statements = true
+if (true) {}
+
+// cpp_space_after_keywords_in_control_flow_statements = false
+if(false) {}
+```
+
+### 個人的な好み
+
+```
+cpp_space_after_keywords_in_control_flow_statements = false
+```
+
+関数と同じくキーワードから丸括弧までをまとめて認識したい
+
+## cpp_space_within_control_flow_statement_parentheses
+
+if/while/forなどのフロー制御の丸括弧内の先頭と終端に空白を入れるならture，入れないならfalse
+
+```cpp
+// cpp_space_within_control_flow_statement_parentheses = true
+for( int i = 0; i < 10; ++i ){}
+
+// cpp_space_within_control_flow_statement_parentheses = false
+for(int i = 0; i < 10; ++i){}
+```
+
+### 個人的な好み
+
+```
+cpp_space_within_control_flow_statement_parentheses = false
+```
+
+若干悩ましいので，こちらをtrueにする場合はcpp_space_within_parameter_list_parenthesesもtrueにすること
+
+## cpp_space_before_lambda_open_parenthesis
+
+lambdaの[]と()の間に空白を入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_space_before_lambda_open_parenthesis = true
+[] (){}
+
+// cpp_space_before_lambda_open_parenthesis = false
+[](){}
+```
+
+### 個人的な好み
+
+```
+cpp_space_before_lambda_open_parenthesis = false
+```
+
+まとめて認識したいので
+
+## cpp_space_within_cast_parentheses
+
+C形式のキャストの開き括弧の直後と閉じ括弧の直前にスペースを入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_space_within_cast_parentheses = true
+( double )2
+
+// cpp_space_within_cast_parentheses = false
+(double)2
+```
+
+### 個人的な好み
+
+```
+cpp_space_within_cast_parentheses = false
+```
+
+そもそもC形式のキャストを使うなというところだが，C形式のキャストにする場合にスペースがあると認識しづらい
+
+## cpp_space_after_cast_close_parenthesis
+
+C形式のキャストの直後にスペースを入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_space_after_cast_close_parenthesis = true
+(double) 2
+
+// cpp_space_after_cast_close_parenthesis = false
+(double)2
+```
+
+### 個人的な好み
+
+```
+cpp_space_after_cast_close_parenthesis = false
+```
+
+下手に空白を入れられるとキャスト対象とまとまっていると認識しづらいので
+
+## cpp_space_within_expression_parentheses
+
+丸括弧で囲まれた式の前後にスペースを入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_space_within_expression_parentheses = true
+( ( 1 + 2 ) * 3 )
+
+// cpp_space_within_expression_parentheses = false
+((1 + 2) * 3)
+```
+
+### 個人的な好み
+
+```
+cpp_space_within_expression_parentheses = true
+```
+
+若干悩ましく，これをtrueにするなら引数リストもtrueにすべきな気がするが，引数リストは丸括弧がネストすることは無いのにたいして，
+式はネストすることがあって空白を入れた方が見やすかったのでtrueにする
+
+## cpp_space_before_block_open_brace
+
+ブロックの開き括弧の前に空白を入れるならtrue，入れないならfalse
+
+```
+// cpp_space_before_block_open_brace = true
+if() {}
+
+// cpp_space_before_block_open_brace = false
+if(){}
+```
+
+### 個人的な好み
+
+```
+cpp_space_before_block_open_brace = false
+```
+
+そもそもcpp_new_line_before_open_brace_blockで次の行になるようにしているので空白は不要
+
+## cpp_space_between_empty_braces
+
+空の中括弧の間にスペースを入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_space_between_empty_braces = true
+if(){ }
+// cpp_space_between_empty_braces = false
+if(){}
+```
+
+### 個人的な好み
+
+```
+cpp_space_between_empty_braces = false
+```
+
+下手に空白があると書きかけに見えるので
+
+## cpp_space_before_initializer_list_open_brace
+
+初期化子リストの開き括弧の前に空白を入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_space_before_initializer_list_open_brace = true
+std::vector v { 1, 2, 3, 4, 5 };
+
+// cpp_space_before_initializer_list_open_brace = false
+std::vector v { 1, 2, 3, 4, 5 };
+```
+
+### 個人的な好み
+
+```
+cpp_space_before_initializer_list_open_brace = true
+```
+
+識別子と初期化子リストは分けて認識したいので
+
+## cpp_space_within_initializer_list_braces
+
+初期化子リストの開き括弧の直後と閉じ括弧の前に空白を入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_space_within_initializer_list_braces = true
+std::vector v { 1, 2, 3, 4, 5 };
+
+// cpp_space_within_initializer_list_braces = false
+std::vector v {1, 2, 3, 4, 5};
+```
+
+### 個人的な好み
+
+```
+cpp_space_within_initializer_list_braces = true
+```
+
+若干こちらの方が読みやすかったので．  
+ただ，初期化リストも改行するルールにするとfalseになる?
+
+## cpp_space_preserve_in_initializer_list
+
+初期化子リスト内の空白を維持するならtrue，維持しないならfalse
+
+```cpp
+// cpp_space_preserve_in_initializer_list = true
+vector v {  1,  2,  3,
+           -1, -2, -3
+};
+
+// cpp_space_preserve_in_initializer_list = false
+vector v { 1, 2, 3,
+    -1, -2, -3
+};
+```
+
+### 個人的な好み
+
+```
+cpp_space_preserve_in_initializer_list = true
+```
+
+負数と正数で数値の開始を揃えるなど，若干整形したいこともあるのでtrue
+
+## cpp_space_before_open_square_bracket
+
+配列アクセスなどの四角括弧の開きの前に空白を入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_space_before_open_square_bracket = true
+vector v;
+v [0];
+
+// cpp_space_before_open_square_bracket = false
+vector v;
+v[0];
+```
+
+### 個人的な好み
+
+```
+cpp_space_before_open_square_bracket = false
+```
+
+識別子とのかたまりとして認識したいので
+
+## cpp_space_within_square_brackets
+
+四角括弧の開きの後と閉じの前にスペースを入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_space_within_square_brackets = true
+vector v;
+v[ 0 ];
+
+// cpp_space_within_square_brackets = false
+vector v;
+v[0];
+```
+
+### 個人的な好み
+
+```
+cpp_space_within_square_brackets = false
+```
+
+四角括弧の中にそこまで複雑な式を書くことは無いので，ひとまとめとして認識したい
+
+## cpp_space_before_empty_square_brackets
+
+空の四角括弧の前に空白を入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_space_before_empty_square_brackets = true
+int a [];
+
+// cpp_space_before_empty_square_brackets = false
+int a[];
+```
+
+### 個人的な好み
+
+```
+cpp_space_before_empty_square_brackets = false
+```
+
+識別子とまとめて認識したいので
+
+## cpp_space_between_empty_square_brackets
+
+空の四角括弧の中にスペースを入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_space_between_empty_square_brackets = true
+int a[ ];
+
+// cpp_space_between_empty_square_brackets = false
+int a[];
+```
+
+### 個人的な好み
+
+```
+cpp_space_between_empty_square_brackets = false
+```
+
+無駄なスペースがあると書きかけに見えるので
+
+## cpp_space_group_square_brackets
+
+多次元配列の四角括弧をグループ化し，スペースを削除するならtrue，しないならfalse  
+他と違ってtrueがスペースの削除なので注意
+
+```cpp
+// cpp_space_group_square_brackets = true
+int a[1][2];
+
+// cpp_space_group_square_brackets = false
+int a[1] [2];
+```
+
+### 個人的な好み
+
+```
+cpp_space_group_square_brackets = true
+```
+
+グループになっている方がまとまって認識しやすいので
+
+## cpp_space_within_lambda_brackets
+
+lambda式のキャプチャの開きの後と閉じの前にスペースを入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_space_within_lambda_brackets = true
+int x;
+[ x ](){}
+
+// cpp_space_within_lambda_brackets = false
+int x;
+[x](){}
+```
+
+### 個人的な好み
+
+```
+cpp_space_within_lambda_brackets = true
+```
+
+複数のキャプチャがある場合には空白があった方が読みやすそうだったので
+
+## cpp_space_between_empty_lambda_brackets
+
+lambda式の空のキャプチャにスペースを入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_space_between_empty_lambda_brackets = true
+[ ](){};
+
+// cpp_space_between_empty_lambda_brackets = false
+[](){};
+```
+
+### 個人的な好み
+
+```
+cpp_space_between_empty_lambda_brackets = false
+```
+
+スペースがあると書き忘れに見えるので
+
+## cpp_space_before_comma
+
+カンマの前にスペースを入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_space_before_comma = true
+void f(int a , int b);
+
+// cpp_space_before_comma = false
+void f(int a, int b);
+```
+
+### 個人的な好み
+
+```
+cpp_space_before_comma = false
+```
+
+カンマの前に空白があると別途認識する必要があって読みにくく感じたので
+
+## cpp_space_after_comma
+
+カンマの後にスペースを入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_space_after_comma = true
+void f(int a, int b);
+
+// cpp_space_after_comma = false
+void f(int a,int b);
+```
+
+### 個人的な好み
+
+```
+cpp_space_after_comma = true
+```
+
+カンマの後にはスペースを入れて，次の要素の始まりを認識しやすくしたい
+
+## cpp_space_remove_around_member_operators
+
+メンバー演算子(./->)の前後のスペースを除去するならtrue，しないならfalse
+
+除去するだけで，falseの場合にスペースを追加するわけではないことに注意
+
+```cpp
+// cpp_space_remove_around_member_operators = true
+std::vector<int> v;
+v.size();
+(&v)->size();
+
+// cpp_space_remove_around_member_operators = false
+std::vector<int> v;
+v . size();
+(&v) -> size();
+```
+
+### 個人的な好み
+
+```
+cpp_space_remove_around_member_operators = true
+```
+
+オブジェクトからのメンバアクセスは一連のものとして見たいので
+
+## cpp_space_before_inheritance_colon
+
+継承のコロンの前にスペースを入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_space_before_inheritance_colon = true
+class X : public Y {};
+
+// cpp_space_before_inheritance_colon = false
+class X: public Y {};
+```
+
+### 個人的な好み
+
+```
+cpp_space_before_inheritance_colon = true
+```
+
+クラス名と継承開始のコロンは別のものとして認識したいので
+
+## cpp_space_before_constructor_colon
+
+コンストラクタのメンバ初期化リストのコロンの前にスペースを入れるならtrue，入れないならfalse
+
+```cpp
+// cpp_space_before_constructor_colon = true
+X() : mA() {}
+
+// cpp_space_before_constructor_colon = false
+X(): mA() {}
+```
+
+### 個人的な好み
+
+```
+cpp_space_before_constructor_colon = true
+```
+
+メンバ変数初期化リストはそもそも改行必須にしたいところだが，名前の一部にしたくないのでスペースは必須に
+
+## cpp_space_remove_before_semicolon
+
+セミコロンの前のスペースを除去するならtrue，除去しないならfalse
+
+あくまでも除去するだけでfalseだとスペースを追加するわけではないことに注意
+
+```cpp
+// cpp_space_remove_before_semicolon = true
+int x;
+
+// cpp_space_remove_before_semicolon = false
+int x ;
+```
+
+### 個人的な好み
+
+```
+cpp_space_remove_before_semicolon = true
+```
+
+セミコロンの前に無駄なスペースは入れて欲しくない
+
+## cpp_space_after_semicolon
+
+セミコロンの後にスペースを入れるならtrue，入れないならfalse  
+主にforを考慮したものと思われる．
+
+```cpp
+// cpp_space_after_semicolon = true
+for(int i = 0; i < 10; ++i) {}
+
+// cpp_space_after_semicolon = false
+for(int i = 0;i < 10;++i) {}
+```
+
+### 個人的な好み
+
+```
+cpp_space_after_semicolon = true
+```
+
+セミコロンの後に他のものを続けると，かたまりとして認識してしまうため．
+
+## cpp_space_remove_around_unary_operator
+
+単項演算子と対象の間の空白を除去するならtrue，除去しないならfalse  
+他と同じく除去系は取り除くだけでスペースを追加しないので注意
+
+アラウンドなのは，インクリメントのように前のケースと後ろのケースがあるため
+
+```cpp
+// cpp_space_remove_around_unary_operator = true
+int i;
+i++;
+++i;
+
+// cpp_space_remove_around_unary_operator = false
+int i;
+i ++;
+++ i;
+```
+
+### 個人的な好み
+
+```
+cpp_space_remove_around_unary_operator = true
+```
+
+## cpp_space_around_binary_operator
+
+二項演算子の前後のスペースの扱いを指定する
+
+設定できる値
+
+- insert
+  - スペースを挿入する
+- remove
+  - スペースを除去する
+- ignore
+  - 何もしない
+
+```cpp
+// cpp_space_around_binary_operator = insert
+1 + 2;
+
+// cpp_space_around_binary_operator = remove
+1+2;
+
+// cpp_space_around_binary_operator = ignore
+1+ 2;
+```
+
+### 個人的な好み
+
+```
+cpp_space_around_binary_operator = insert
+```
+
+演算子の前後には空白を入れて区別したい
+
+## cpp_space_around_assignment_operator
+
+代入演算子の前後のスペースの扱いを指定する
+
+設定できる値
+
+- insert
+  - スペースを挿入する
+- remove
+  - スペースを除去する
+- ignore
+  - 何もしない
+
+```cpp
+// cpp_space_around_assignment_operator = insert
+int i = 0;
+// cpp_space_around_assignment_operator = remove
+int i=0;
+// cpp_space_around_assignment_operator = ignore
+int i= 0;
+```
+
+### 個人的な好み
+
+```
+cpp_space_around_assignment_operator = insert
+```
+
+演算子の前後には空白を入れておきたい
+
+## cpp_space_pointer_reference_alignment
+
+設定できる値
+
+- left
+  - 左揃え，つまり型名側に付ける
+- center
+  - 中央揃え，つまり両側にスペースを入れる
+- right
+  - 右揃え，つまり変数名側に付ける
+- ignore
+  - 何もしない
+
+```cpp
+// cpp_space_pointer_reference_alignment = left
+int* p, & r;
+
+// cpp_space_pointer_reference_alignment = center
+int * p, & r;
+
+// cpp_space_pointer_reference_alignment = right
+int *p, &r;
+
+// cpp_space_pointer_reference_alignment = ignore
+int *p, & r;
+```
+
+### 個人的な好み
+
+```
+cpp_space_pointer_reference_alignment = right
+```
+
+そもそもすべきではないけれど，同じ行で複数の変数を宣言する場合，int *と書いていても，2つ目の変数はポインタにならないというような分かりにくい構文なので，変数名に*や&を付けて，その変数がポインタ，参照と分かりやすくした方が良い
+
+## cpp_space_around_ternary_operator
+
+条件演算子の前後の空白の扱いを指定する
+
+設定できる値
+
+- insert
+  - スペースを挿入する
+- remove
+  - スペースを除去する
+- ignore
+  - 何もしない
+
+```cpp
+// cpp_space_around_ternary_operator = insert
+c ? 0 : 1;
+
+// cpp_space_around_ternary_operator = remove
+c?0:1;
+
+// cpp_space_around_ternary_operator = ignore
+c  ? 0 : 1;
+```
+
+### 個人的な好み
+
+```
+cpp_space_around_ternary_operator = insert
+```
+
+条件演算子のスペースを除去すると区切りが分かりにくいのでスペースを入れた方が良い
