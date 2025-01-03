@@ -6,6 +6,7 @@
 
 - [EditorConfig で一貫性のあるコーディング スタイルを定義する()](https://learn.microsoft.com/ja-jp/visualstudio/ide/create-portable-custom-editor-options?view=vs-2022)
 - [C++ EditorConfig の書式規則](https://learn.microsoft.com/ja-jp/visualstudio/ide/cpp-editorconfig-properties?view=vs-2022)
+- [.editorconfigを使用してインクルードクリーンアップを構成する](https://learn.microsoft.com/ja-jp/cpp/ide/include-cleanup-config?view=msvc-170#configure-include-cleanup-with-editorconfig)
 
 ## root
 EditorConfigはルート(Windowsならドライブ直下，それ以外は/)に辿り付くまでか，root=trueと書かれた.editorconfigを見つけるまで，途中のフォルダ/ディレクトリで見つかった.editorconfigを読み込んでいく．ただし，設定はフォーマット対象のファイルに近い階層にある.editorconfigが優先される．
@@ -1798,3 +1799,63 @@ cpp_space_around_ternary_operator = insert
 ```
 
 条件演算子のスペースを除去すると区切りが分かりにくいのでスペースを入れた方が良い
+
+
+## cpp_wrap_preserve_blocks
+
+ブロックの改行を指定する
+
+設定できる値
+
+- one_liners
+  - 制御文の場合は制御キーワードも含めて1行にあれば折り返さない
+- all_one_line_scopes
+  - 開きと閉じの括弧が同じ行にある場合はブロックに改行を入れない
+- never
+  - 常にブロックの開きの後と閉じの前に改行する
+
+```cpp
+// cpp_wrap_preserve_blocks = one_liners
+// この2つのように1行にあれば改行はされない
+{ return 0; }
+if(...) { return 0; }
+
+// それ以外のパターンは次のようになる
+if(...)
+{
+	return 0;
+}
+
+// cpp_wrap_preserve_blocks = all_one_line_scopes
+// この2つのように1行にあれば改行はされない
+{ return 0; }
+if(...) { return 0; }
+// ifなどのブロックだけ同じ行にある場合もOK
+if(...)
+{ return 0; }
+
+// それ以外のパターンは次のようになる
+if(...)
+{
+	return 0;
+}
+
+// cpp_wrap_preserve_blocks = never
+// 常に改行される
+{
+    return 0;
+}
+
+if(...)
+{
+    return 0;
+}
+```
+
+### 個人的な好み
+
+```
+cpp_wrap_preserve_blocks = never
+```
+
+ブロックは常に改行有りにすることで，後から位置が変わって差分が分かりにくくなるといったことが避けられる
